@@ -17,15 +17,18 @@ function showSearchResult(data){
         const element = data.data[i];
         const title = element.title;
         const artist = element.artist.name;
+        const album = element.album.title;
+        const albumCover = element.album.cover_small;
+        const artistCover = element.artist.picture_small;
         const child = ` <div class="single-result row align-items-center my-3 p-3">
                             <div class="col-md-9">
                                 <div class="d-flex">
-                                    <img class="mr-2 rounded-circle" style="height: 40px" src="${element.album.cover_small}" alt="Album Cover">
+                                    <img class="mr-2 rounded-circle" style="height: 40px" src="${albumCover}" alt="Album Cover">
                                     <h3 class="lyrics-name">${title}</h3>
                                 </div>
                                 <div class="d-flex"
-                                    <p class="author lead">Album by <span>${artist}</span></p>
-                                    <img class="ml-2 rounded-circle" style="height: 20px" src="${element.artist.picture_small}" alt="Artist Cover">
+                                    <p class="author lead">Album: ${album} by: <span>${artist}</span></p>
+                                    <img class="ml-2 rounded-circle" style="height: 20px" src="${artistCover}" alt="Artist Cover">
                                 </div>
                             </div>
                             <div class="col-md-3 text-md-right text-center">
