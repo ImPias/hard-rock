@@ -4,17 +4,16 @@ searchButton.addEventListener("click", function(){
     // console.log(songName);
     fetch(`https://api.lyrics.ovh/suggest/${songName}`)
     .then(res => res.json())
-    .then(data => showSearchResult(data))
+    .then(data => showSearchResult(data.data.slice(0, 10)))
     .catch(error => console.log(error))
 })
 
 function showSearchResult(data){
-    console.log(data)
     const searchResult = document.getElementById('searchResult');
     searchResult.innerHTML = "";
     searchResult.classList.add("search-result", "col-md-8", "mx-auto", "py-4")
-    for (let i = 0; i < 10; i++) {
-        const element = data.data[i];
+    for (let i = 0; i < data.length; i++) {
+        const element = data[i];
         const title = element.title;
         const artist = element.artist.name;
         const album = element.album.title;
@@ -27,7 +26,7 @@ function showSearchResult(data){
                                     <h3 class="lyrics-name">${title}</h3>
                                 </div>
                                 <div class="d-flex"
-                                    <p class="author lead">Album: ${album} by: <span>${artist}</span></p>
+                                    <p class="author lead">Album: ${album} by: <span> ${artist}</span></p>
                                     <img class="ml-2 rounded-circle" style="height: 20px" src="${artistCover}" alt="Artist Cover">
                                 </div>
                             </div>
