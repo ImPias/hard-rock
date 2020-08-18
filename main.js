@@ -34,7 +34,7 @@ function getLyrics(title, artist){
     .then(data => {
         const showLyrics = document.getElementById('showLyrics');
         const songLyrics = `<button class="btn go-back">&lsaquo;</button>
-                        <h2 class="text-success mb-4">${artist} - ${title}</h2>
+                        <h2 class="text-success mb-4">${title} - ${artist}</h2>
                         <pre class="lyric text-white">
 ${data.lyrics}
                         </pre>`;
