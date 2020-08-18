@@ -21,16 +21,28 @@ function showSearchResult(data){
                                 <p class="author lead">Album by <span>${artist}</span></p>
                             </div>
                             <div class="col-md-3 text-md-right text-center">
-                                <button onclick="alert("ONclick")" class="btn btn-success">Get Lyrics</button>
+                                <button onclick="getLyrics('${title}', '${artist}')" class="btn btn-success">Get Lyrics</button>
                             </div>
                         </div>`;
         searchResult.innerHTML += child;
     }
 }
 
-function getLyrics(element){
-    console.log("get lyrics")
-    const title = element.album.title;
-    const artist = element.artist.name;
-    console.log(title, artist);
+function getLyrics(title, artist){
+    fetch(`https://api.lyrics.ovh/v1/${artist}/${title}`)
+    .then(res => res.json())
+    .then(data => {
+        const showLyrics = document.getElementById('showLyrics');
+        const songLyrics = `<button class="btn go-back">&lsaquo;</button>
+                        <h2 class="text-success mb-4">${artist} - ${title}</h2>
+                        <pre class="lyric text-white">
+${data.lyrics}
+                        </pre>`;
+        const lyricsFailed = `<h2 class="text-danger mb-4">${data.error}</h2>`
+        if(data.error){
+            showLyrics.innerHTML = lyricsFailed;
+        } else {
+            showLyrics.innerHTML = songLyrics;
+        }
+    })
 }
