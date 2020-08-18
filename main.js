@@ -5,20 +5,28 @@ searchButton.addEventListener("click", function(){
     fetch(`https://api.lyrics.ovh/suggest/${songName}`)
     .then(res => res.json())
     .then(data => showSearchResult(data))
+    .catch(error => console.log(error))
 })
 
 function showSearchResult(data){
+    console.log(data)
     const searchResult = document.getElementById('searchResult');
     searchResult.innerHTML = "";
     searchResult.classList.add("search-result", "col-md-8", "mx-auto", "py-4")
     for (let i = 0; i < 10; i++) {
         const element = data.data[i];
-        const title = element.album.title;
+        const title = element.title;
         const artist = element.artist.name;
         const child = ` <div class="single-result row align-items-center my-3 p-3">
                             <div class="col-md-9">
-                                <h3 class="lyrics-name">${title}</h3>
-                                <p class="author lead">Album by <span>${artist}</span></p>
+                                <div class="d-flex">
+                                    <img class="mr-2 rounded-circle" style="height: 40px" src="${element.album.cover_small}" alt="Album Cover">
+                                    <h3 class="lyrics-name">${title}</h3>
+                                </div>
+                                <div class="d-flex"
+                                    <p class="author lead">Album by <span>${artist}</span></p>
+                                    <img class="ml-2 rounded-circle" style="height: 20px" src="${element.artist.picture_small}" alt="Artist Cover">
+                                </div>
                             </div>
                             <div class="col-md-3 text-md-right text-center">
                                 <button onclick="getLyrics('${title}', '${artist}')" class="btn btn-success">Get Lyrics</button>
@@ -45,4 +53,5 @@ ${data.lyrics}
             showLyrics.innerHTML = songLyrics;
         }
     })
+    .catch(error => console.log(error))
 }
